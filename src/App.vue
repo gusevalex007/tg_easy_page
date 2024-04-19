@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from 'vue'
+import Hhello from './components/Hhello.vue'
+// import HelloWorld from './components/HelloWorld.vue'
 import SimpleForm from './components/SimpleForm.vue'
-import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
 </script>
 
@@ -15,7 +16,7 @@ import TheWelcome from './components/TheWelcome.vue'
       <HelloWorld msg="You did it!  Oops.." />
     </div>
   </header> -->
-  Приветик
+  Привет
 </SimpleForm>
   <!-- <main>
     <TheWelcome />
