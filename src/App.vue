@@ -1,26 +1,14 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import Hhello from './components/Hhello.vue'
-// import HelloWorld from './components/HelloWorld.vue'
-import SimpleForm from './components/SimpleForm.vue'
 import TheWelcome from './components/TheWelcome.vue'
 </script>
 
 
 
 <template>
-  <SimpleForm>
-  <!-- <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-    <div class="wrapper">
-      <HelloWorld msg="You did it!  Oops.." />
-    </div>
-  </header> -->
-  Привет
-</SimpleForm>
-  <!-- <main>
+  <main>
     <TheWelcome />
-  </main> -->
+  </main>
 </template>
 
 <style scoped>

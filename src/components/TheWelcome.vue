@@ -1,89 +1,129 @@
-<script setup lang="ts">
-import WelcomeItem from './WelcomeItem.vue'
-import DocumentationIcon from './icons/IconDocumentation.vue'
-import ToolingIcon from './icons/IconTooling.vue'
-import EcosystemIcon from './icons/IconEcosystem.vue'
-import CommunityIcon from './icons/IconCommunity.vue'
-import SupportIcon from './icons/IconSupport.vue'
-</script>
-
 <template>
-  <WelcomeItem>
-    <template #icon>
-      <DocumentationIcon />
+  <v-card
+    :disabled="loading"
+    :loading="loading"
+    class="mx-auto my-12"
+    max-width="374"
+    elevation="10"
+  >
+    <template v-slot:loader="{ isActive }">
+      <v-progress-linear
+        :active="isActive"
+        color="deep-purple"
+        height="4"
+        indeterminate
+      ></v-progress-linear>
     </template>
-    
-    <template #heading>Documentation</template>
 
-    Vue’s
-    <a href="https://vuejs.org/" target="_blank" rel="noopener">official documentation</a>
-    provides you with all information you need to get started.
-  </WelcomeItem>
+    <v-img
+      height="250"
+      src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+      cover
+    ></v-img>
 
-  <WelcomeItem>
-    <template #icon>
-      <ToolingIcon />
-    </template>
-    <template #heading>Tooling</template>
+    <v-card-item>
+      <v-card-title>Cafe Mint</v-card-title>
 
-    This project is served and bundled with
-    <a href="https://vitejs.dev/guide/features.html" target="_blank" rel="noopener">Vite</a>. The
-    recommended IDE setup is
-    <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">VSCode</a> +
-    <a href="https://github.com/johnsoncodehk/volar" target="_blank" rel="noopener">Volar</a>. If
-    you need to test your components and web pages, check out
-    <a href="https://www.cypress.io/" target="_blank" rel="noopener">Cypress</a> and
-    <a href="https://on.cypress.io/component" target="_blank" rel="noopener"
-      >Cypress Component Testing</a
-    >.
+      <v-card-subtitle>
+        <span class="me-1">Местная кондитерская</span>
 
-    <br />
+        <v-icon color="error" icon="mdi-fire-circle" size="small"></v-icon>
+      </v-card-subtitle>
+    </v-card-item>
 
-    More instructions are available in <code>README.md</code>.
-  </WelcomeItem>
+    <v-card-text>
+      <v-row align="center" class="mx-0">
+        <v-rating
+          :model-value="4.8"
+          color="amber"
+          density="compact"
+          size="small"
+          half-increments
+          readonly
+        ></v-rating>
 
-  <WelcomeItem>
-    <template #icon>
-      <EcosystemIcon />
-    </template>
-    <template #heading>Ecosystem</template>
+        <div class="text-grey ms-4">4.8 (413)</div>
+      </v-row>
 
-    Get official tools and libraries for your project:
-    <a href="https://pinia.vuejs.org/" target="_blank" rel="noopener">Pinia</a>,
-    <a href="https://router.vuejs.org/" target="_blank" rel="noopener">Vue Router</a>,
-    <a href="https://test-utils.vuejs.org/" target="_blank" rel="noopener">Vue Test Utils</a>, and
-    <a href="https://github.com/vuejs/devtools" target="_blank" rel="noopener">Vue Dev Tools</a>. If
-    you need more resources, we suggest paying
-    <a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">Awesome Vue</a>
-    a visit.
-  </WelcomeItem>
+      <div class="my-4 text-subtitle-1">$ • Торты, кофе</div>
 
-  <WelcomeItem>
-    <template #icon>
-      <CommunityIcon />
-    </template>
-    <template #heading>Community</template>
+      <div>
+        Меренговый рулет на индючьем молоке с лепестками из чешуи бангладешской
+        барабульки.
+      </div>
+      <div class="my-4 text-subtitle-1">Вес 2.5 кг</div>
+      <div class="my-2 text-subtitle-1">Цена 3600 руб.</div>
+    </v-card-text>
 
-    Got stuck? Ask your question on
-    <a href="https://chat.vuejs.org" target="_blank" rel="noopener">Vue Land</a>, our official
-    Discord server, or
-    <a href="https://stackoverflow.com/questions/tagged/vue.js" target="_blank" rel="noopener"
-      >StackOverflow</a
-    >. You should also subscribe to
-    <a href="https://news.vuejs.org" target="_blank" rel="noopener">our mailing list</a> and follow
-    the official
-    <a href="https://twitter.com/vuejs" target="_blank" rel="noopener">@vuejs</a>
-    twitter account for latest news in the Vue world.
-  </WelcomeItem>
+    <v-divider class="mx-4 mb-1"></v-divider>
 
-  <WelcomeItem>
-    <template #icon>
-      <SupportIcon />
-    </template>
-    <template #heading>Support Vue</template>
+    <v-card-title>Время доставки</v-card-title>
 
-    As an independent project, Vue relies on community backing for its sustainability. You can help
-    us by
-    <a href="https://vuejs.org/sponsor/" target="_blank" rel="noopener">becoming a sponsor</a>.
-  </WelcomeItem>
+    <div class="px-4 mb-2">
+      <v-chip-group
+        v-model="selection"
+        selected-class="bg-deep-purple-lighten-2"
+      >
+        <v-chip>5:30PM</v-chip>
+
+        <v-chip>7:30PM</v-chip>
+
+        <v-chip>8:00PM</v-chip>
+
+        <v-chip>9:00PM</v-chip>
+      </v-chip-group>
+    </div>
+
+    <v-card-actions>
+      <v-btn
+        color="deep-purple-lighten-2"
+        text="Заказать "
+        block
+        border
+        @click="reserve"
+      ></v-btn>
+    </v-card-actions>
+
+ 
+    <v-dialog transition="dialog-top-transition" width="auto">
+          <template v-slot:activator="{ props: activatorProps }">
+            <v-btn
+              v-bind="activatorProps"
+              text="Transition from Top"
+              block
+            ></v-btn>
+          </template>
+          <template v-slot:default="{ isActive}">
+            <v-card>
+              <v-toolbar class="pa-4" title="Вы сделали свой первый заказ!"></v-toolbar>
+              <v-card-text class="text-h4 pa-12"> Спасибо! </v-card-text>
+              <v-card-actions class="justify-end">
+                <v-btn text="Закрыть" @click="isActive.value = false"></v-btn>
+              </v-card-actions>
+            </v-card>
+          </template>
+        </v-dialog>
+
+
+  </v-card>
 </template>
+
+
+
+<script>
+  export default {
+    data: () => ({
+      loading: false,
+      selection: 1,
+    }),
+
+    methods: {
+      reserve() {
+        this.loading = true
+
+        setTimeout(() => (this.loading = false), 500)
+
+      },
+    },
+  }
+</script>
