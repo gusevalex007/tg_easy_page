@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import SimpleForm from './components/SimpleForm.vue'
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
-import SimpleForm from './components/SimpleForm.vue'
 </script>
+
 
 
 <template>
